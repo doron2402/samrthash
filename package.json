@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/doron2402/samrthash/issues"
   },
-  "homepage": "https://github.com/doron2402/samrthash.git"
+  "homepage": "https://github.com/doron2402/samrthash.git",
+  "dependencies": {
+    "async": "~0.9.0",
+    "moment": "~2.7.0"
+  }
 }
