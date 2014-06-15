@@ -2,6 +2,7 @@
 
 ## RELEASE NOTES:
 
+0.0.4 - more acceptance test and new functions such as fetchAndRemove.
 0.0.3 - update release and readme (June 14, 2014)
 0.0.2 - bug fix - ttl now is optional. (June 14, 2014)
 0.0.1 - First version :) (June 14, 2014)
@@ -15,7 +16,7 @@ c. check if data exist.
 d. generate dynamic index.
 e. set TTL to each of the value.
 f. set TTL `ms`, `s` - seconds, `m` - minutes, `h` - hour, `d` - days, `w` - week
-
+g. fetch and remove by an index, after fetching the object it will be deleted.
 
 ## Quick Examples
 ```

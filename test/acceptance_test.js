@@ -5,6 +5,7 @@ var SmartHash = require('smarthash').SmartHash;
 var h;
 
 describe("SmartHash acceptance test", function() {
+    var size;
     describe("SmartHash - insert some fake data", function(){
         before(function(done){
             h = new SmartHash();
@@ -46,7 +47,7 @@ describe("SmartHash acceptance test", function() {
             setTimeout(function(){
                 h.fetch({index: 'doron'}, function(err, result){
                     assert.equal(result, undefined);
-                    assert.equal(err, undefined);
+                    assert.equal(err,'Value is not found.');
                     done();
                 });
             }, 1500);
@@ -59,6 +60,29 @@ describe("SmartHash acceptance test", function() {
                 assert.equal(result.value.email, 'test@test.com');
                 assert.equal(result.ttl, undefined);
                 done();
+            });
+        });
+
+        describe("When using fetch and remove", function(){
+            it("should fetch and remove the value from the hash", function(done){
+                size = h.getSize();
+                h.fetchAndRemove({index: 'test'}, function(err, result){
+                    assert.ok(result);
+                    assert.equal(result.value.user_id, '123');
+                    assert.equal(result.value.email, 'test@test.com');
+                    done();
+                });
+            });
+            it("size should be -1 than before", function(done){
+                assert.equal(size-1, h.getSize());
+                done();
+            });
+            it("index 'test' should be missing", function(done){
+                h.fetch({index: 'test'}, function(err, result){
+                    assert.equal(result, null);
+                    done();
+                });
+
             });
         });
     });
