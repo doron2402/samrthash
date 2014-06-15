@@ -2,8 +2,9 @@
 
 ## RELEASE NOTES:
 
-0.0.2 - bug fix - ttl now is optional.
-0.0.1 - First version :) June 14, 2014
+0.0.3 - update release and readme (June 14, 2014)
+0.0.2 - bug fix - ttl now is optional. (June 14, 2014)
+0.0.1 - First version :) (June 14, 2014)
 
 
 SmartHash is a utility module which provides straight-forward, powerful hash tool

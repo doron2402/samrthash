@@ -1,6 +1,6 @@
 {
   "name": "smarthash",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "smart hash table",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,10 @@
   "keywords": [
     "node.js",
     "hash",
-    "smarthash"
+    "smarthash",
+    "hash with ttl",
+    "table with ttl",
+    "queue"
   ],
   "author": "Doron Segal",
   "license": "ISC",
