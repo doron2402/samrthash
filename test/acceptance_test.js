@@ -8,7 +8,7 @@ describe("SmartHash acceptance test", function() {
     var size;
     before(function(done){
         h = new SmartHash();
-        h.insert({index: 'doron', value: {phone_num: '1'}, ttl: 1, time: 's'});
+        h.insert({index: 'doron', value: {phone_num: '1', test_field: 'some field'}, ttl: 1, time: 's'});
         h.insert({index: 'doron', value: {phone_num: '2'}, ttl: 3200});
         h.insert({index: 'doron', value: {phone_num: '3'}, ttl: 33000});
         h.insert({index: 'doron', value: {phone_num: '4'}, ttl: 23000});
@@ -30,8 +30,8 @@ describe("SmartHash acceptance test", function() {
     it("user 'doron' should be found in hash", function(done){
         h.fetch({index: 'doron'}, function(err, result){
             assert.ok(result.value);
-            assert.ok(result.value.phone_num);
-            assert.equal(result.value.phone_num, '1');
+            result.value.should.have.property('phone_num','1');
+            result.value.should.have.property('test_field','some field');
             done();
         });
     });
@@ -39,7 +39,8 @@ describe("SmartHash acceptance test", function() {
     it("user 'doron' should BE found in hash after 0.5 second", function(done){
         setTimeout(function(){
             assert.ok(h.Data['doron']);
-            assert.equal(h.Data['doron'].value.phone_num, '1');
+            h.Data['doron'].value.should.have.property('phone_num','1');
+            h.Data['doron'].value.should.have.property('test_field','some field');
             done();
         }, 500);
     });
