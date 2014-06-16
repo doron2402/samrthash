@@ -74,7 +74,7 @@ describe("SmartHash acceptance test", function() {
                 });
             });
             it("size should be -1 than before", function(done){
-                assert.equal(size-1, h.getSize());
+                assert.ok(size > h.getSize());
                 done();
             });
             it("index 'test' should be missing", function(done){
@@ -83,6 +83,42 @@ describe("SmartHash acceptance test", function() {
                     done();
                 });
 
+            });
+        });
+
+        describe("When using same index twice SmartHash will generate a new index id for the latest index", function(){
+            var id1;
+            var id2;
+            var random_id;
+            var random_value;
+            var random_value2;
+            before(function(done){
+                random_id = 'random_id';
+                random_value = { name: 'random user', email: 'random@email.com' };
+                random_value2 = { name: 'second random user', email: 'random_second@email.com' };
+                h.insert({index: random_id, value: random_value }, function(err, result){
+                    id1 = result.id;
+                    h.insert({index: random_id, value: random_value2 }, function(err, result2){
+                        id2 = result2.id;
+                        done();
+                    });
+                });
+            });
+            it ("id " + id1 + " should have the values", function(done){
+                h.fetch({index: id1}, function(err, result){
+                    assert.ok(result);
+                    assert.equal(result.value.name, random_value.name);
+                    assert.equal(result.value.email, random_value.email);
+                    done();
+                });
+            });
+            it("id " + id2 + " should have `second random user`", function(done){
+                h.fetch({index: id2}, function(err, result){
+                    assert.ok(result);
+                    assert.equal(result.value.name, random_value2.name);
+                    assert.equal(result.value.email, random_value2.email);
+                    done();
+                });
             });
         });
     });
