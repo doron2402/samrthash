@@ -144,7 +144,10 @@ describe("SmartHash acceptance test", function() {
             index: 'user_index',
             value: {username: 'user1'}
         };
-        var user2 = user1;
+        var user2 = {
+            index: 'user_index',
+            value: {username: 'user1'}
+        };
         after(function(done){
             h.fetchAndRemove({index: user1.index}, function(err, res){
                 done();
@@ -160,6 +163,22 @@ describe("SmartHash acceptance test", function() {
             h.checkIfIndexExist(user1, function(err, res){
                 res.should.be.a.Boolean;
                 res.should.be.true;
+                done();
+            });
+        });
+        it("Should NOT add user2 becuase they both have the same index", function(done){
+            h.checkIfIndexExist(user1, function(err, res){
+                res.should.be.true;
+                if (res) {
+                    done();
+                }
+            });
+        });
+        it("Should generate a new ID for user2", function(done){
+            h.insert(user2, function(err, res){
+                res.should.be.an.instanceOf(Object).and.have.property('id');
+                res.obj.value.should.be.an.instanceOf(Object).and.have.property('username','user1');
+                res.id.should.not.equal(user1.index);
                 done();
             });
         });
