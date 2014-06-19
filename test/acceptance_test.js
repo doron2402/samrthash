@@ -138,4 +138,30 @@ describe("SmartHash acceptance test", function() {
             });
         });
     });
+
+    describe("When an index is already created don't create another one", function(){
+        var user1 = {
+            index: 'user_index',
+            value: {username: 'user1'}
+        };
+        var user2 = user1;
+        after(function(done){
+            h.fetchAndRemove({index: user1.index}, function(err, res){
+                done();
+            });
+        });
+        it("Should add a new index to hash", function(done){
+            h.insert(user1, function(err, result){
+                assert.equal(result.id, user1.index);
+                done();
+            });
+        });
+        it("Should return that index is already being used", function(done){
+            h.checkIfIndexExist(user1, function(err, res){
+                res.should.be.a.Boolean;
+                res.should.be.true;
+                done();
+            });
+        });
+    });
 });
